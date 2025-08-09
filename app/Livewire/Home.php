@@ -17,7 +17,7 @@ class Home extends Component
     public function render()
     {
         return view('livewire.home' , [
-            'courses' => Course::paginate(10)
+            'courses' => Course::with('user')->withCount(['comments' , 'views'])->paginate(10)
         ]);
     }
 }

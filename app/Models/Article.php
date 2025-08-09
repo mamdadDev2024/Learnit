@@ -2,23 +2,48 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'title',
-        'context',
+        'excerpt',
+        'body',
+        'slug',
         'image',
-        'user_id'
+        'published'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset('storage/' . $this->image) : null;
+        return $this->image ? asset($this->image) : null;
     }
 
-    public function getExcerptAttribute()
+    public function user()
     {
-        return str()->limit(strip_tags($this->content), 100);
+        return $this->belongsTo(User::class);
+    }
+
+ 
+    public function categories()
+    {
+        return $this->morphToMany(Category::class , 'categorizable');
+    }
+
+    public function views()
+    {
+        return $this->morphMany(View::class , 'viewable');
+    }
+    
+    public function comments()
+    {
+        return $this->morphMany(Comment::class , 'commentable');
     }
 }
