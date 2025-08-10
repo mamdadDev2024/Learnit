@@ -1,4 +1,5 @@
 @props([
+    'formName' => '',
     'type' => 'submit',
     'color' => 'primary', // primary, secondary, danger, یا سفارشی
     'full' => false,
@@ -27,7 +28,7 @@
         {{ $slot }}
     </span>
 
-    <span wire:loading.flex class="items-center gap-2">
+    <span wire:loading.flex wire:loading.target="{{$formName}}" class="items-center gap-2">
         <svg class="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10"
                     stroke="currentColor" stroke-width="4"></circle>

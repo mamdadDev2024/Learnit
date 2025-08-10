@@ -15,11 +15,12 @@ return new class extends Migration
         Schema::create('courses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug')->unique()->nullable();
             $table->text('description');
             $table->integer('price');
             $table->foreignIdFor(User::class)->constrained('users')->cascadeOnDelete();
             $table->text('image');
+            $table->boolean('is_approved')->default(false);
             $table->integer('rating');
             $table->timestamps();
         });

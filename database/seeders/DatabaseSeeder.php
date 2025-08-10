@@ -18,9 +18,11 @@ class DatabaseSeeder extends Seeder
     {
         $category = Category::factory()->create();
         $user = User::factory()->create();
-        $course = Course::factory()->create(['user_id' => $user->id]);
-        $article = Article::factory()->create(['user_id' => $user->id]);
-        $article->categories()->attach($category->id);
+        $course = Course::factory()->count(10)->create(['user_id' => $user->id]);
+        $articles = Article::factory()->count(10)->create(['user_id' => $user->id]);
+        $articles->each(function ($article) use ($category) {
+            $article->categories()->attach($category->id);
+        });
         $this->call(RolePermissionSeeder::class);
     }
 }

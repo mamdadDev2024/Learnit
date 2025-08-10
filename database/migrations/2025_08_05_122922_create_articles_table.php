@@ -14,8 +14,8 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
-            $table->string('slug');
+            $table->string('title');
+            $table->string('slug')->unique()->nullable();
             $table->text('excerpt');
             $table->text('body');
             $table->text('image');

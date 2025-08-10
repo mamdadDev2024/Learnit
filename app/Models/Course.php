@@ -14,14 +14,15 @@ class Course extends Model
         'price',
         'image',
         'rating',
-        'user_id'
+        'user_id',
+        'is_approved'
     ];
 
     public function categories()
     {
         return $this->morphToMany(Category::class , 'categorizable');
     }
-    
+
     public function getRouteKeyName()
     {
         return 'slug';
@@ -40,7 +41,7 @@ class Course extends Model
     {
         return $this->morphMany(Comment::class , 'commentable');
     }
-  
+
     public function views()
     {
         return $this->morphMany(View::class , 'viewable');
